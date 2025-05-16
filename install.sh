@@ -7,10 +7,10 @@ fi
 
 #Determine version to use
 virtualAudioExe=""
-if which pulseaudio > /dev/null 2>&1; then
-	echo "Installing PulseAudio Version"
-	virtualAudioExe="virtualAudioPulse"
-elif which pipewire > /dev/null 2>&1; then
+#if which pulseaudio > /dev/null 2>&1; then
+#	echo "Installing PulseAudio Version"
+#	virtualAudioExe="virtualAudioPulse"
+if which pipewire > /dev/null 2>&1; then
 	echo "Installing Pipewire version"
 	virtualAudioExe="virtualAudioPipewire"
 else
@@ -22,11 +22,11 @@ fi
 make
 
 #Create service and register
-sudo cp nova-mixer.service /usr/lib/systemd/user/nova-mixer.service
+sudo cp nova-mixer.service /etc/systemd/user/nova-mixer.service
 systemctl --user enable nova-mixer
 systemctl --user start nova-mixer
 
 #Copy binary to bin and clean up
-sudo cp nova7Mixer /usr/local/bin/nova7Mixer
-sudo cp ${virtualAudioExe} /usr/local/bin/virtualAudio
+sudo cp nova7Mixer ${HOME}/.local/bin/nova7Mixer
+sudo cp ${virtualAudioExe} ${HOME}/.local/bin/virtualAudio
 make clean

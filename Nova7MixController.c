@@ -18,7 +18,7 @@ int main( int argc, char *argv[] )
 
 	while(1){
 		//Open a process with headsetcontrol
-		fp = popen("headsetcontrol -m -c", "r");
+		fp = popen("headsetcontrol -m -o ENV | grep -E 'DEVICE_0_CHATMIX=(.*)' | cut -d '=' -f2", "r");
 		if (fp == NULL) {
 			printf("Failed to run command\n" );
 			exit(EXIT_FAILURE);
